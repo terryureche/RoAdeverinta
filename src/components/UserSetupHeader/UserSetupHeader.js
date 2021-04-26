@@ -9,7 +9,7 @@ import './UserSetupHeader.css';
 
 const UserSetupHeader = () => {
     return (
-        <IonHeader>
+        <IonHeader no-border>
             <IonToolbar>
                 <IonButtons slot="start">
                 <IonBackButton defaultHref="home" />

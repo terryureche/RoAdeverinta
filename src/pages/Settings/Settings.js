@@ -5,12 +5,12 @@ import {
     IonTextarea
 } from '@ionic/react';
 import React from 'react';
-import './UserSetup.css';
+import './Settings.css';
 
 import UserSetupHeader from './../../components/UserSetupHeader/UserSetupHeader';
-import {GetPersonalData, SetPersonalData} from './../../Hooks/storagePersonalData';
+import {GetPersonalData, SetPersonalData} from './../../hooks/storagePersonalData';
 
-const UserSetup = () => {
+const Settings = () => {
     // const [userData] = GetPersonalData();
     const [personalData, setPersonalData] = SetPersonalData("");
 
@@ -31,4 +31,4 @@ const UserSetup = () => {
   );
 };
 
-export default UserSetup;
+export default Settings;
