@@ -4,6 +4,7 @@
   "private": true,
   "dependencies": {
     "@capacitor/core": "2.4.7",
+    "@craco/craco": "^6.1.2",
     "@ionic/react": "^5.5.0",
     "@ionic/react-router": "^5.5.0",
     "@ionic/storage": "^3.0.4",
@@ -36,10 +37,16 @@
     "workbox-streams": "^5.1.4"
   },
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "start": "craco start",
+    "build": "craco build",
+    "test": "craco test",
+    "eject": "react-scripts eject",
+    "tw:base": "npx tailwindcss-cli build ./src/theme/tailwind/base.css -o ./src/theme/tw-base.css",
+    "tw:components": "npx tailwindcss-cli build ./src/theme/tailwind/components.css -o ./src/theme/tw-components.css",
+    "tw:utilities": "npx tailwindcss-cli build ./src/theme/tailwind/utilities.css -o ./src/theme/tw-utilities.css",
+    "tailwind": "npm run tw:base && npm run tw:components && npm run tw:utilities",
+    "tailwind:prod": "PURGE_TW=true npm run tailwind",
+    "serve": "npm run tailwind && npm run start"
   },
   "eslintConfig": {
     "extends": [
@@ -61,7 +68,10 @@
   },
   "devDependencies": {
     "@capacitor/cli": "2.4.7",
-    "@ionic/lab": "3.2.10"
+    "@ionic/lab": "3.2.10",
+    "autoprefixer": "^9.8.6",
+    "postcss": "^7.0.35",
+    "tailwindcss": "npm:@tailwindcss/postcss7-compat@^2.1.2"
   },
   "description": "An Ionic project"
 }

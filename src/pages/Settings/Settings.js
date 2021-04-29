@@ -8,7 +8,7 @@ import React from 'react';
 import './Settings.css';
 
 import UserSetupHeader from './../../components/UserSetupHeader/UserSetupHeader';
-import {GetPersonalData, SetPersonalData} from './../../hooks/storagePersonalData';
+import {GetPersonalData, SetPersonalData} from '../../Hooks/storagePersonalData';
 
 const Settings = () => {
     // const [userData] = GetPersonalData();
