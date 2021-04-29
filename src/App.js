@@ -1,8 +1,9 @@
 import { Redirect, Route } from 'react-router-dom';
 import { IonApp, IonRouterOutlet } from '@ionic/react';
 import { IonReactRouter } from '@ionic/react-router';
-import Settings from './pages/Settings/Settings';
-import FirstSetup from './pages/FirstSetup/FirstSetup';
+// import Settings from './pages/Settings/Settings';
+// import FirstSetup from './pages/FirstSetup/FirstSetup';
+import Onboarding from "./pages/Onboarding/Onboarding";
 import Home from "./pages/Home/Home";
 
 /* Core CSS required for Ionic components to work properly */
@@ -32,18 +33,30 @@ import './theme/variables.css';
 
 import './theme/tw-utilities.css';
 
-import { Provider as AuthProvider } from './context/AuthContext';
+import { Provider as AuthProvider, Context as AuthContext } from './context/AuthContext';
+import {useContext} from "react";
+
+const CustomRoute = () => {
+  const {state} = useContext(AuthContext);
+
+  return (
+      <Route
+          exact
+          path="/home"
+          render={ () => state.didOnboarding ? <Home /> : <Onboarding /> }
+      />
+  );
+};
 
 const App = () => (
   <AuthProvider>
     <IonApp>
       <IonReactRouter>
         <IonRouterOutlet>
-          <Route exact path="/home">
-            {/* <Settings /> */}
-            {/*<FirstSetup />*/}
-            <Home/>
+          <Route exact path="/onboarding">
+            <Onboarding />
           </Route>
+          <CustomRoute />
           <Route exact path="/">
             <Redirect to="/home" />
           </Route>
