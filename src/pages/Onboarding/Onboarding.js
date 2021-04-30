@@ -3,6 +3,7 @@ import {IonButton,IonTitle , IonContent, IonFooter, IonPage, IonSlide, IonSlides
 import './Onboarding.css';
 import {Context as AuthContext} from './../../context/AuthContext';
 import {PersonalData} from './../../components/PersonalDataSetup/PersonalDataSetup';
+import Sliding from './../../components/Sliding/Sliding';
 const Onboarding = () => {
     const slideOpts = {
         initialSlide: 0,
@@ -19,8 +20,6 @@ const Onboarding = () => {
         const currentStep = await e.target.getActiveIndex() + 1;
         setCurrentStep(currentStep);
 
-        console.log("changed", currentStep, lastStep);
-
     });
 
     return (
@@ -28,10 +27,11 @@ const Onboarding = () => {
             <IonContent>
                 <IonSlides options={slideOpts} onIonSlideDidChange={onSlideChanged}>
                     <IonSlide>
-                        <div className="w-full h-full flex-row">
-                                <img className="mx-auto p-8 max-w-xxs" src="assets/img/undraw_terms.svg"
-                                     alt="terms and conditions illustration"/>
-                                <h1>Salutare test test text lung bla bla bla bla</h1>
+                        <div className="w-full h-full flex flex-col">
+                            <img className="mx-auto p-8 max-w-xxs justify-center" src="assets/img/undraw_terms.svg"
+                                    alt="terms and conditions illustration"/>
+                            <h1>Salutare test test text lung bla bla bla bla</h1>
+                            <Sliding/>
                         </div>
                     </IonSlide>
                     <IonSlide>

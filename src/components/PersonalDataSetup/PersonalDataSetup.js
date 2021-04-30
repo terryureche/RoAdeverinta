@@ -8,12 +8,13 @@ import {
     IonItem, 
     IonLabel, 
     IonList, 
+    IonDatetime,
     IonItemDivider 
 } from '@ionic/react';
 
 import Reactm, { useState }  from 'react';
 
-const Input = ({value, setValue, placeholder, label, type="text"}) => {
+const Input = ({value, setValue, placeholder, label,  type="text"}) => {
     debugger;
 
     return (
@@ -68,13 +69,19 @@ const PersonalData = () => {
                     placeholder={placeholder}
                     label="Cu reședința în fapt în:"
                 />
-                <Input
-                    type="date"
-                    value={birtdate}
-                    setValue={setBirthdate}
-                    placeholder={placeholder}
-                    label="Născut/ă în data de"
-                />
+                <IonItem>
+                    <IonLabel>Născut/ă în data de</IonLabel>
+                    <IonDatetime 
+                        type="datetime"
+                        value={birtdate} 
+                        placeholder={placeholder} 
+                        onIonChange={(e) =>setBirthdate(e.detail.value)}
+                        displayFormat="YYYY-MM-DD" min="1950" max="2020"
+                        clearInput
+                        cancelText="Inapoi"
+                        doneText="Selecteaza"
+                    />
+                </IonItem>
                 <Input
                     value={placeOfBirth}
                     setValue={setPlaceOfBirth}
