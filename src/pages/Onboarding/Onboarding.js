@@ -2,7 +2,7 @@ import React, {useContext, useState, useCallback} from 'react';
 import {IonButton, IonContent, IonFooter, IonPage, IonSlide, IonSlides, IonToolbar,} from '@ionic/react';
 import './Onboarding.css';
 import {Context as AuthContext} from './../../context/AuthContext';
-
+import {PersonalData} from './../../components/PersonalDataSetup/PersonalDataSetup';
 const Onboarding = () => {
     const slideOpts = {
         initialSlide: 0,
@@ -37,12 +37,14 @@ const Onboarding = () => {
                         </div>
                     </IonSlide>
                     <IonSlide>
-                        <div className="w-full h-full flex flex-col">
+                        {/* <div className="w-full h-full flex flex-col">
                             <div className="flex px-14 justify-center">
                                 <img src="assets/img/undraw_terms.svg" className="w-1/3 tablet:w-1/4"
                                      alt="terms and conditions illustration"/>
                             </div>
-                        </div>
+                        </div> */}
+
+                        <PersonalData/>
                     </IonSlide>
                 </IonSlides>
             </IonContent>

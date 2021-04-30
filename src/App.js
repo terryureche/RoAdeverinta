@@ -5,6 +5,7 @@ import { IonReactRouter } from '@ionic/react-router';
 // import FirstSetup from './pages/FirstSetup/FirstSetup';
 import Onboarding from "./pages/Onboarding/Onboarding";
 import Home from "./pages/Home/Home";
+// import {PersonalData} from './'
 
 /* Core CSS required for Ionic components to work properly */
 import '@ionic/react/css/core.css';
@@ -59,6 +60,7 @@ const App = () => (
           <CustomRoute />
           <Route exact path="/">
             <Redirect to="/home" />
+            
           </Route>
         </IonRouterOutlet>
       </IonReactRouter>
