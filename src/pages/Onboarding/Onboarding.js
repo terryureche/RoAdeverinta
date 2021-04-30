@@ -1,5 +1,5 @@
 import React, {useContext, useState, useCallback} from 'react';
-import {IonButton, IonContent, IonFooter, IonPage, IonSlide, IonSlides, IonToolbar,} from '@ionic/react';
+import {IonButton,IonTitle , IonContent, IonFooter, IonPage, IonSlide, IonSlides, IonToolbar, IonHeader} from '@ionic/react';
 import './Onboarding.css';
 import {Context as AuthContext} from './../../context/AuthContext';
 import {PersonalData} from './../../components/PersonalDataSetup/PersonalDataSetup';
@@ -28,15 +28,18 @@ const Onboarding = () => {
             <IonContent>
                 <IonSlides options={slideOpts} onIonSlideDidChange={onSlideChanged}>
                     <IonSlide>
-                        <div className="w-full h-full flex flex-col">
-                            <div className="flex px-14 justify-center">
-                                <img src="assets/img/undraw_terms.svg" className="w-1/3 tablet:w-1/4"
+                        <div className="w-full h-full flex-row">
+                                <img className="mx-auto p-8 max-w-xxs" src="assets/img/undraw_terms.svg"
                                      alt="terms and conditions illustration"/>
-                            </div>
-                            <h1>Salut!</h1>
+                                <h1>Salutare test test text lung bla bla bla bla</h1>
                         </div>
                     </IonSlide>
                     <IonSlide>
+                    <IonHeader>
+                        <IonToolbar>
+                            <IonTitle>Date Personale</IonTitle>
+                        </IonToolbar>
+                    </IonHeader>
                         {/* <div className="w-full h-full flex flex-col">
                             <div className="flex px-14 justify-center">
                                 <img src="assets/img/undraw_terms.svg" className="w-1/3 tablet:w-1/4"

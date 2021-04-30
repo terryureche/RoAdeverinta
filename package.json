@@ -46,7 +46,8 @@
     "tw:utilities": "npx tailwindcss-cli build ./src/theme/tailwind/utilities.css -o ./src/theme/tw-utilities.css",
     "tailwind": "npm run tw:base && npm run tw:components && npm run tw:utilities",
     "tailwind:prod": "PURGE_TW=true npm run tailwind",
-    "serve": "npm run tailwind && npm run start"
+    "serve": "npm run tailwind && npm run start",
+    "mobile": "npm run tailwind && ionic serve -l"
   },
   "eslintConfig": {
     "extends": [

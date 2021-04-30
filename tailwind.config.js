@@ -1,4 +1,5 @@
 module.exports = {
+  important: true,
   purge: {
     enabled: process.env.PURGE_TW === 'true',
     content: ['./src/**/*.{js,jsx,ts,tsx}', './public/index.html'],
@@ -6,6 +7,9 @@ module.exports = {
   darkMode: 'media', // or 'media' or 'class'
   theme: {
     extend: {
+      maxWidth: {
+        "max-w-xxs": "18rem"
+      },
       minHeight:{
         12: '3rem',
         14: '3.5rem',
