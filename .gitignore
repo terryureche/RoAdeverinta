@@ -5,11 +5,18 @@
 /.pnp
 .pnp.js
 
+
+/src/theme/tw-utilities.css
+/src/theme/tw-components.css
+/src/theme/tw-base.css
+
 # testing
 /coverage
 
 # production
 /build
+
+
 
 # misc
 .DS_Store
