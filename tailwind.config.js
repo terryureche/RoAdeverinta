@@ -32,6 +32,9 @@ module.exports = {
       },
       height: () => ({
         "80-screen":"80vh"
+      }),
+      width: () => ({
+        "105-screen":"105vw"
       })
     },
     screens: {

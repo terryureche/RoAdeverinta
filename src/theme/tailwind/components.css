@@ -5,4 +5,8 @@
        background: transparent;
     }
 
+    .underline-warning {
+        @apply underline;
+        text-decoration-color: var(--ion-color-warning);
+    }
 }

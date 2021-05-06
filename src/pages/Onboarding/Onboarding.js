@@ -1,14 +1,29 @@
-import React, {useContext, useState, useCallback} from 'react';
-import {IonButton,IonTitle , IonContent, IonFooter, IonPage, IonSlide, IonSlides, IonToolbar, IonHeader} from '@ionic/react';
+import React, {useCallback, useContext, useRef, useState} from 'react';
+import {
+    IonButton,
+    IonContent,
+    IonFooter,
+    IonHeader,
+    IonIcon,
+    IonPage,
+    IonSlide,
+    IonSlides,
+    IonTitle,
+    IonToolbar
+} from '@ionic/react';
 import './Onboarding.css';
 import {Context as AuthContext} from './../../context/AuthContext';
 import {PersonalData} from './../../components/PersonalDataSetup/PersonalDataSetup';
-import Sliding from './../../components/Sliding/Sliding';
+import {arrowBackSharp as iconPrev, arrowForwardSharp as iconNext} from 'ionicons/icons';
+import IntroInformation from "../../components/IntroInformation/IntroInformation";
+import TermsAndConditions from "../../components/TermsAndConditions/TermsAndConditions";
+
 const Onboarding = () => {
     const slideOpts = {
         initialSlide: 0,
         speed: 400
     };
+    const sliderEl = useRef(null);
 
     const lastStep = 2
     const [showButton, setShowButton] = useState(false);
@@ -22,48 +37,65 @@ const Onboarding = () => {
 
     });
 
+    const nextSlide = () => {
+        sliderEl.current.slideNext();
+    };
+
+    const prevSlide = () => {
+        sliderEl.current.slidePrev();
+    }
+
     return (
         <IonPage>
-            <IonContent>
-                <IonSlides options={slideOpts} onIonSlideDidChange={onSlideChanged}>
+            <IonContent fullscreen={true}>
+                <IonSlides
+                    options={slideOpts}
+                    onIonSlideDidChange={onSlideChanged}
+                    ref={sliderEl}
+                >
                     <IonSlide>
-                        <div className="w-full h-full flex flex-col">
-                            <img className="mx-auto p-8 max-w-xxs justify-center" src="assets/img/undraw_terms.svg"
-                                    alt="terms and conditions illustration"/>
-                            <h1>Salutare test test text lung bla bla bla bla</h1>
-                            <Sliding/>
-                        </div>
+                        <IntroInformation/>
                     </IonSlide>
                     <IonSlide>
-                    <IonHeader>
-                        <IonToolbar>
-                            <IonTitle>Date Personale</IonTitle>
-                        </IonToolbar>
-                    </IonHeader>
-                        {/* <div className="w-full h-full flex flex-col">
-                            <div className="flex px-14 justify-center">
-                                <img src="assets/img/undraw_terms.svg" className="w-1/3 tablet:w-1/4"
-                                     alt="terms and conditions illustration"/>
-                            </div>
-                        </div> */}
-
+                        <TermsAndConditions/>
+                    </IonSlide>
+                    <IonSlide>
+                        <IonHeader>
+                            <IonToolbar>
+                                <IonTitle>Date Personale</IonTitle>
+                            </IonToolbar>
+                        </IonHeader>
                         <PersonalData/>
                     </IonSlide>
                 </IonSlides>
             </IonContent>
             <IonFooter>
                 <IonToolbar className="transparent-toolbar">
-                    <div className="flex w-full items-center justify-around">
+                    <div className="flex w-full items-center justify-between px-3">
                         <span className="text-medium-default">{currentStep} / {lastStep}</span>
-                        {
-                            currentStep === lastStep &&
+                        <div className="flex items-center">
+                            {
+                                currentStep > 1 &&
+                                <IonButton
+                                    size="small"
+                                    shape="round"
+                                    fill="clear"
+                                    color="medium"
+                                    className="mr-2"
+                                    onClick={prevSlide}
+                                >
+                                    <IonIcon slot="icon-only" icon={iconPrev}/>
+                                </IonButton>
+                            }
                             <IonButton
-                            color="primary"
-                            shape="round"
+                                size="small"
+                                shape="round"
+                                fill="clear"
+                                onClick={nextSlide}
                             >
-                            Urmatorul
+                                <IonIcon slot="icon-only" icon={iconNext}/>
                             </IonButton>
-                        }
+                        </div>
                     </div>
                 </IonToolbar>
             </IonFooter>

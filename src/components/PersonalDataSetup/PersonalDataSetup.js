@@ -15,8 +15,6 @@ import {
 import Reactm, { useState }  from 'react';
 
 const Input = ({value, setValue, placeholder, label,  type="text"}) => {
-    debugger;
-
     return (
         <IonItem>
             <IonLabel>{label}</IonLabel>
