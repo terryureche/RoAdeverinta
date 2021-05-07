@@ -59,7 +59,7 @@ const TermsAndConditions = () => {
             <img
                 className="mx-auto p-8 max-w-xxs"
                 src="assets/img/undraw_terms_n_conditions.svg"
-                alt="fill form illustration"/>
+                alt="terms and conditions illustration"/>
             <div className="flex flex-col w-full items-start px-4 text-left">
                 <h2 className="mt-6 text-xl">
                     <span className="underline-warning">

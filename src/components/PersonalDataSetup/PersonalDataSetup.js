@@ -1,96 +1,112 @@
-import { 
-    IonContent, 
-    IonHeader, 
-    IonPage, 
-    IonTitle, 
-    IonToolbar, 
-    IonInput, 
-    IonItem, 
-    IonLabel, 
-    IonList, 
-    IonDatetime,
-    IonItemDivider 
-} from '@ionic/react';
+import {IonButton, IonContent, IonDatetime, IonIcon, IonInput, IonItem, IonLabel, IonList, useIonAlert} from '@ionic/react';
+import React, {useState} from 'react';
+import {informationCircleSharp as iconInfo} from 'ionicons/icons';
 
-import Reactm, { useState }  from 'react';
-
-const Input = ({value, setValue, placeholder, label,  type="text"}) => {
+const InputItem = ({value, setValue, placeholder, label, type = "text"}) => {
     return (
         <IonItem>
-            <IonLabel>{label}</IonLabel>
-            <IonInput 
+            <IonLabel position="stacked">
+                {label}
+            </IonLabel>
+            <IonInput
                 type={type}
-                value={value} 
-                placeholder={placeholder} 
-                onIonChange={(e) =>setValue(e.detail.value)}
+                value={value}
+                placeholder={placeholder}
+                onIonChange={(e) => setValue(e.detail.value)}
                 clearInput
-            ></IonInput>
+            />
         </IonItem>
     )
 }
 
 const PersonalData = () => {
-    const [firstName, setFirstName] = useState("");
-    const [lastName, setLastName] = useState("");
+    const [name, setName] = useState("");
     const [birtdate, setBirthdate] = useState("");
     const [placeOfBirth, setPlaceOfBirth] = useState("");
     const [homeAddress, setHomeAddress] = useState("");
-    const [residence, setrResidence] = useState("");
+    const [residence, setResidence] = useState("");
 
     const placeholder = "...";
 
+    const [present] = useIonAlert();
+    const showInfoAlert = () => {
+        present({
+            header: "Info",
+            message:"Adresa de resedinta poate fi aproximata, automat, folosind locatia telefonului, la momentul generarii declaratiei.",
+            buttons:[
+                'Ok'
+            ]
+        });
+    }
+
 
     return (
-        <IonContent fullscreen={true}>
+        <IonContent fullscreen={true} className="w-105-screen">
+            <img
+                className="mx-auto p-8 max-w-xxs"
+                src="assets/img/undraw_profile_data.svg"
+                alt="fill form illustration"/>
             <IonList>
-                <Input 
-                    value={lastName}
-                    setValue={setLastName}
-                    placeholder={placeholder}
-                    label="Numele"
+                <InputItem
+                    value={name}
+                    setValue={setName}
+                    placeholder="Numele complet"
+                    label="Nume"
                 />
-                <Input
-                    value={firstName}
-                    setValue={setFirstName}
-                    placeholder={placeholder}
-                    label="Prenume"
-                />
-                <Input
+                <InputItem
                     value={homeAddress}
                     setValue={setHomeAddress}
-                    placeholder={placeholder}
-                    label="Domiciliat/ă în"
-                />
-                <Input
-                    value={residence}
-                    setValue={setrResidence}
-                    placeholder={placeholder}
-                    label="Cu reședința în fapt în:"
+                    placeholder="Asa cum este in buletin"
+                    label="Adresa de domiciliu"
                 />
                 <IonItem>
-                    <IonLabel>Născut/ă în data de</IonLabel>
-                    <IonDatetime 
+                    <IonLabel position="stacked">
+                        <div className="flex w-full items-center">
+                            <span>Adresa la care locuiesti</span>
+                            <IonButton
+                                slot="end"
+                                size="small"
+                                shape="round"
+                                fill="clear"
+                                color="medium"
+                                className="m-0"
+                                onClick={showInfoAlert}
+                            >
+                                <IonIcon slot="icon-only" icon={iconInfo}/>
+                            </IonButton>
+                        </div>
+                    </IonLabel>
+                    <IonInput
+                        type="text"
+                        value={residence}
+                        placeholder={placeholder}
+                        onIonChange={(e) => setResidence(e.detail.value)}
+                        clearInput
+                    />
+                </IonItem>
+                <IonItem>
+                    <IonLabel position="stacked">Data nasterii</IonLabel>
+                    <IonDatetime
                         type="datetime"
-                        value={birtdate} 
-                        placeholder={placeholder} 
-                        onIonChange={(e) =>setBirthdate(e.detail.value)}
+                        value={birtdate}
+                        onIonChange={(e) => setBirthdate(e.detail.value)}
                         displayFormat="YYYY-MM-DD" min="1950" max="2020"
                         clearInput
                         cancelText="Inapoi"
                         doneText="Selecteaza"
                     />
                 </IonItem>
-                <Input
+                <InputItem
                     value={placeOfBirth}
                     setValue={setPlaceOfBirth}
                     placeholder={placeholder}
-                    label="In localitatea:"
+                    label="Nascut in localitatea:"
                 />
             </IonList>
         </IonContent>
     );
 }
 
-export { 
+export {
     PersonalData
 };

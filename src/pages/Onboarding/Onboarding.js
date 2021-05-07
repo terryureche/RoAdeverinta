@@ -3,12 +3,10 @@ import {
     IonButton,
     IonContent,
     IonFooter,
-    IonHeader,
     IonIcon,
     IonPage,
     IonSlide,
     IonSlides,
-    IonTitle,
     IonToolbar
 } from '@ionic/react';
 import './Onboarding.css';
@@ -25,7 +23,7 @@ const Onboarding = () => {
     };
     const sliderEl = useRef(null);
 
-    const lastStep = 2
+    const lastStep = 5
     const [showButton, setShowButton] = useState(false);
     const [currentStep, setCurrentStep] = useState(1);
 
@@ -60,11 +58,6 @@ const Onboarding = () => {
                         <TermsAndConditions/>
                     </IonSlide>
                     <IonSlide>
-                        <IonHeader>
-                            <IonToolbar>
-                                <IonTitle>Date Personale</IonTitle>
-                            </IonToolbar>
-                        </IonHeader>
                         <PersonalData/>
                     </IonSlide>
                 </IonSlides>
