@@ -4,6 +4,7 @@ import './Onboarding.css';
 import {Context as AuthContext} from './../../context/AuthContext';
 import {PersonalData} from './../../components/PersonalDataSetup/PersonalDataSetup';
 import Sliding from './../../components/Sliding/Sliding';
+import useLocation from "../../hooks/useLocation";
 const Onboarding = () => {
     const slideOpts = {
         initialSlide: 0,
@@ -15,6 +16,8 @@ const Onboarding = () => {
     const [currentStep, setCurrentStep] = useState(1);
 
     const {didOnboarding, state} = useContext(AuthContext);
+
+    const [address] = useLocation("/home");
 
     const onSlideChanged = useCallback(async e => {
         const currentStep = await e.target.getActiveIndex() + 1;
@@ -30,7 +33,7 @@ const Onboarding = () => {
                         <div className="w-full h-full flex flex-col">
                             <img className="mx-auto p-8 max-w-xxs justify-center" src="assets/img/undraw_terms.svg"
                                     alt="terms and conditions illustration"/>
-                            <h1>Salutare test test text lung bla bla bla bla</h1>
+                            {address && <h1>Salutare din  {address.place_name}</h1>}
                             <Sliding/>
                         </div>
                     </IonSlide>
