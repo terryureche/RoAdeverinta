@@ -1,0 +1,9 @@
+{
+  "appId": "io.ionic.starter",
+  "appName": "RoAdeverinta",
+  "bundledWebRuntime": false,
+  "npmClient": "npm",
+  "webDir": "build",
+  "plugins": {},
+  "cordova": {}
+}
