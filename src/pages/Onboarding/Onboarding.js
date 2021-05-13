@@ -16,11 +16,13 @@ import {PersonalData} from './../../components/PersonalDataSetup/PersonalDataSet
 import {arrowBackSharp as iconPrev, arrowForwardSharp as iconNext} from 'ionicons/icons';
 import IntroInformation from "../../components/IntroInformation/IntroInformation";
 import TermsAndConditions from "../../components/TermsAndConditions/TermsAndConditions";
+import SignaturePad from "../../components/SignaturePad/SignaturePad";
 
 const Onboarding = () => {
     const slideOpts = {
         initialSlide: 0,
-        speed: 400
+        speed: 400,
+        allowTouchMove: false
     };
     const sliderEl = useRef(null);
     const [present, dismiss] = useIonToast();
@@ -28,7 +30,7 @@ const Onboarding = () => {
     const lastStep = 5
     const [showButton, setShowButton] = useState(false);
     const [currentStep, setCurrentStep] = useState(1);
-    const {state} = useContext(AuthContext);
+    const {updateUserData, state} = useContext(AuthContext);
 
     const isFormComplete = () => {
         const requiredFields = ['name', 'birthDate', 'placeOfBirth', 'homeAddress', 'residence'];
@@ -41,12 +43,12 @@ const Onboarding = () => {
         return true;
     };
 
-    const showIncompleteFormToast = () => {
+    const showIncompleteFormToast = message => {
         present({
+            message,
             buttons: [
                 {text: 'ok', handler: () => dismiss()}
-            ],
-            message: "Toate campurile sunt obligatorii"
+            ]
         });
     };
 
@@ -57,7 +59,12 @@ const Onboarding = () => {
 
     const nextSlide = () => {
         if (currentStep === 3 && !isFormComplete()) {
-            showIncompleteFormToast();
+            showIncompleteFormToast("Toate campurile sunt obligatorii");
+
+            return;
+        }
+        if (currentStep === 4 && !state.userData.signature) {
+            showIncompleteFormToast("Semnatura este necesara");
 
             return;
         }
@@ -66,6 +73,14 @@ const Onboarding = () => {
 
     const prevSlide = () => {
         sliderEl.current.slidePrev();
+    }
+
+    const onSignatureAcquired = signature => {
+        updateUserData({...state.userData, signature});
+    }
+
+    const onSignatureCleared = () => {
+        updateUserData({...state.userData, signature: null});
     }
 
     return (
@@ -84,6 +99,9 @@ const Onboarding = () => {
                     </IonSlide>
                     <IonSlide>
                         <PersonalData/>
+                    </IonSlide>
+                    <IonSlide>
+                        <SignaturePad getSignature={onSignatureAcquired} onClear={onSignatureCleared}/>
                     </IonSlide>
                 </IonSlides>
             </IonContent>

@@ -45,6 +45,7 @@ module.exports = {
       xwidescreen: '1536px',
     },
     colors: {
+      white: '#FFFFFF',
       primary: {
         default: 'var(--ion-color-primary)',
         shade: 'var(--ion-color-primary-shade)',
