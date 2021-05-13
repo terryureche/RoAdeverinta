@@ -7,7 +7,8 @@ import {
     IonPage,
     IonSlide,
     IonSlides,
-    IonToolbar
+    IonToolbar,
+    useIonToast
 } from '@ionic/react';
 import './Onboarding.css';
 import {Context as AuthContext} from './../../context/AuthContext';
@@ -22,20 +23,44 @@ const Onboarding = () => {
         speed: 400
     };
     const sliderEl = useRef(null);
+    const [present, dismiss] = useIonToast();
 
     const lastStep = 5
     const [showButton, setShowButton] = useState(false);
     const [currentStep, setCurrentStep] = useState(1);
+    const {state} = useContext(AuthContext);
 
-    const {didOnboarding, state} = useContext(AuthContext);
+    const isFormComplete = () => {
+        const requiredFields = ['name', 'birthDate', 'placeOfBirth', 'homeAddress', 'residence'];
+        for (let key of Object.keys(state.userData)) {
+            if (requiredFields.includes(key) && (null == state.userData[key] || '' === state.userData[key].trim())) {
+                return false;
+            }
+        }
+
+        return true;
+    };
+
+    const showIncompleteFormToast = () => {
+        present({
+            buttons: [
+                {text: 'ok', handler: () => dismiss()}
+            ],
+            message: "Toate campurile sunt obligatorii"
+        });
+    };
 
     const onSlideChanged = useCallback(async e => {
         const currentStep = await e.target.getActiveIndex() + 1;
         setCurrentStep(currentStep);
-
     });
 
     const nextSlide = () => {
+        if (currentStep === 3 && !isFormComplete()) {
+            showIncompleteFormToast();
+
+            return;
+        }
         sliderEl.current.slideNext();
     };
 

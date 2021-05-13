@@ -1,6 +1,7 @@
 import {IonButton, IonContent, IonDatetime, IonIcon, IonInput, IonItem, IonLabel, IonList, useIonAlert} from '@ionic/react';
-import React, {useState} from 'react';
+import React, {useState, useContext} from 'react';
 import {informationCircleSharp as iconInfo} from 'ionicons/icons';
+import {Context as AuthContext} from './../../context/AuthContext';
 
 const InputItem = ({value, setValue, placeholder, label, type = "text"}) => {
     return (
@@ -20,16 +21,14 @@ const InputItem = ({value, setValue, placeholder, label, type = "text"}) => {
 }
 
 const PersonalData = () => {
-    const [name, setName] = useState("");
-    const [birtdate, setBirthdate] = useState("");
-    const [placeOfBirth, setPlaceOfBirth] = useState("");
-    const [homeAddress, setHomeAddress] = useState("");
-    const [residence, setResidence] = useState("");
-
     const placeholder = "...";
+
+    const {updateUserData, state} = useContext(AuthContext);
+    const {name, birthdate, placeOfBirth, homeAddress, residence} = state.userData;
 
     const [present] = useIonAlert();
     const showInfoAlert = () => {
+        console.log(state);
         present({
             header: "Info",
             message:"Adresa de resedinta poate fi aproximata, automat, folosind locatia telefonului, la momentul generarii declaratiei.",
@@ -49,13 +48,13 @@ const PersonalData = () => {
             <IonList>
                 <InputItem
                     value={name}
-                    setValue={setName}
+                    setValue={value => {updateUserData({...state.userData, name:value})}}
                     placeholder="Numele complet"
                     label="Nume"
                 />
                 <InputItem
                     value={homeAddress}
-                    setValue={setHomeAddress}
+                    setValue={value => {updateUserData({...state.userData, homeAddress:value})}}
                     placeholder="Asa cum este in buletin"
                     label="Adresa de domiciliu"
                 />
@@ -80,7 +79,7 @@ const PersonalData = () => {
                         type="text"
                         value={residence}
                         placeholder={placeholder}
-                        onIonChange={(e) => setResidence(e.detail.value)}
+                        onIonChange={(e) => updateUserData({...state.userData, residence: e.detail.value})}
                         clearInput
                     />
                 </IonItem>
@@ -88,8 +87,8 @@ const PersonalData = () => {
                     <IonLabel position="stacked">Data nasterii</IonLabel>
                     <IonDatetime
                         type="datetime"
-                        value={birtdate}
-                        onIonChange={(e) => setBirthdate(e.detail.value)}
+                        value={birthdate}
+                        onIonChange={(e) =>  updateUserData({...state.userData, birthdate: e.detail.value})}
                         displayFormat="YYYY-MM-DD" min="1950" max="2020"
                         clearInput
                         cancelText="Inapoi"
@@ -98,7 +97,7 @@ const PersonalData = () => {
                 </IonItem>
                 <InputItem
                     value={placeOfBirth}
-                    setValue={setPlaceOfBirth}
+                    setValue={ value => {updateUserData({...state.userData, placeOfBirth:value})} }
                     placeholder={placeholder}
                     label="Nascut in localitatea:"
                 />

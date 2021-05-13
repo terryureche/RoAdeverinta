@@ -1,36 +1,45 @@
 import createDataContext from './createDataContext';
 
 const state = {
-    userData: null,
-    didOnboarding: false
+    userData:{
+        name: null,
+        birthdate: null,
+        placeOfBirth: null,
+        homeAddress: null,
+        residence: null,
+        signature: null,
+        commonReason:null
+    },
+    didOnboarding: false,
+    cacuta: false,
 }
 
 const authReducer = (state, action) => {
     switch (action.type) {
-        case 'user_configured':
+        case 'update_user_data':
             return {...state, userData: action.payload};
         case 'no_user':
             return {...state, userData: null};
         case 'onboarding':
             return {...state, didOnboarding: action.payload};
-
     }
 }
 
-const userConfigured = dispatch => async ({userName, password}) => {
-    dispatch({type: 'user_configured', payload: "test"});
+const updateUserData = dispatch => async (payload) => {
+    dispatch({type: 'update_user_data', payload});
 }
 
 const noUser = dispatch => async () => {
     dispatch({type: 'no_user', payload: null});
 }
 
-const didOnboarding = dispatch => async () => {
-    dispatch({type: 'no_user', payload: null});
+const didOnboarding = dispatch => async payload => {
+    debugger
+    dispatch({type: 'onboarding', payload});
 }
 
 export const {Provider, Context} = createDataContext(
     authReducer,
-    {userConfigured, noUser, didOnboarding},
+    {updateUserData, noUser, didOnboarding},
     state
 );
